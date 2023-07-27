@@ -22,6 +22,9 @@ JSONParser parser = new JSONParser();
 JSONObject msg  = (JSONObject) parser.parse("{\"msg\":\"request device info\"}");
 JSONObject result = subscriber.getDeviceInfo(getDeviceInfoTopic,msg);
 System.out.println(result);
+
+//Using this client to send message
+subscriber.sendMsg(topic,msg);
 ```
 
 ## MQSubscriberCallbackInterface
