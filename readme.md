@@ -9,7 +9,7 @@ MQSubscriber subscriber = new MQSubscriber(broker,username,password,clientid,sub
 subscriber.setCallback(new MQSubscriberCallbackInterface() {
             @Override
             public void messageHandler(String topic,JSONObject msg) {
-                // Print the msg
+                // Code for handling the subscribed message
                 System.out.println("msg: "+ msg);
             }
         });
