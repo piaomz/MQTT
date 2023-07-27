@@ -25,7 +25,7 @@ public class MQSubscriberTest {
             public void messageHandler(String topic,JSONObject msg) {
                 // Callback Function when received a message
                 System.out.println("subscriber receive from topic: "+topic);
-                System.out.println("msg: "+ msg.toJSONString());
+                System.out.println("msg: "+ msg);
             }
         });
         subscriber.startListening();
@@ -37,7 +37,7 @@ public class MQSubscriberTest {
             public void messageHandler(String topic,JSONObject msg) throws ParseException {
                 //Use this msg can distinguish what msg is (what request is for), default is for request device info, return(publish) to the subsribe topic.
                 System.out.println("subscriber2 receive from topic: "+topic);
-                System.out.println("msg: "+ msg.toJSONString());
+                System.out.println("msg: "+ msg);
                 //return message
                 JSONParser parser = new JSONParser();
                 JSONObject msgreturn  = (JSONObject) parser.parse("{\"msg\":\"this is device info\"}");

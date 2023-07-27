@@ -6,9 +6,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
-import java.util.HashMap;
 
 public class MQSubscriber {
     private final int timeoutSec = 3;
