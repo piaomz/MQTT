@@ -1,5 +1,6 @@
 package org.example;
 
+import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.simple.JSONObject;
@@ -21,6 +22,7 @@ public class MQSubscriber {
     private MQSubscriberCallbackInterface callback;
     private JSONObject returnMsg;
     private MemoryPersistence memoryPersistence;
+    private static Logger logger = Logger.getLogger(MQSubscriber.class);
     public MQSubscriber(String brokerURL, String username,String password, String clientid, String subscribeTopic,int qos) throws MqttException {
         this.brokerURL = brokerURL;
         this.username = username;
@@ -46,6 +48,7 @@ public class MQSubscriber {
         MQSubscriber that = this;
         client.setCallback(new MqttCallback() {
             public void connectionLost(Throwable cause) {
+                logger.error("client: "+clientid+" connectionLost: " + cause.getMessage());
                 try {
                     throw cause;
                 } catch (Throwable e) {
@@ -58,7 +61,7 @@ public class MQSubscriber {
                 //System.out.println("\ntopic: " + topic);
                 //System.out.println("Qos: " + message.getQos());
                 //System.out.println("message content: " + msg);
-
+                logger.info("Message Arrired: topic: " + topic+", Qos: "+ message.getQos()+", message content: " + msg);
                 JSONParser parser = new JSONParser();
                 that.returnMsg = (JSONObject) parser.parse(msg);
 
@@ -100,6 +103,7 @@ public class MQSubscriber {
         // publish message
         try {
             client.publish(topic,message);
+            logger.info("Published: topic:"+topic+", message:"+message);
 
         } catch (MqttException e) {
             throw new RuntimeException(e);
