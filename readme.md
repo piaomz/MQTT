@@ -27,7 +27,7 @@ System.out.println(result);
 subscriber.sendMsg(topic,msg);
 ```
 
-## MQSubscriberCallbackInterface
+## MQSubscriberCallbackInterface interface
 
 For setting the callback function when receive message from the subscribeTopic.
 
@@ -41,3 +41,4 @@ new MQSubscriberCallbackInterface() {
         }
 ```
 
+### Try to run using the test class MQSubscriberTest.java
