@@ -7,12 +7,15 @@ import org.json.simple.parser.ParseException;
 
 public class MQSubscriberTest {
     public static void main(String[] args) throws MqttException, ParseException {
+        //Test Server
         String broker = "tcp://broker.emqx.io:1883";
         String username = "emqx";
         String password = "public";
         String clientid = "mqttx_95566b52";
         String clientid2 = "mqttx_9144c890";
+        //The subsribed topic
         String subscribeTopic = "piaomz/subscribeTest";
+        //For actively request device info
         String getDeviceInfoTopic = "piaomz/getDeviceInfoTest";
         int qos = 0;
 
@@ -32,6 +35,7 @@ public class MQSubscriberTest {
         subscriber2.setCallback(new MQSubscriberCallbackInterface() {
             @Override
             public void messageHandler(String topic,JSONObject msg) throws ParseException {
+                //Use this msg can distinguish what msg is (what request is for), default is for request device info, return(publish) to the subsribe topic.
                 System.out.println("subscriber2 receive from topic: "+topic);
                 System.out.println("msg: "+ msg.toJSONString());
                 //return message
@@ -45,6 +49,7 @@ public class MQSubscriberTest {
         //Testing for request the device info 主动请求
         JSONParser parser = new JSONParser();
         JSONObject msg  = (JSONObject) parser.parse("{\"msg\":\"request device info\"}");
+        //actively request device info, need a new topic, can specific msg
         JSONObject result = subscriber.getDeviceInfo(getDeviceInfoTopic,msg);
         System.out.println(result);
     }
