@@ -15,6 +15,8 @@ public class MQSubscriberTest {
         String subscribeTopic = "mqtt/subscribeTestPiaomz";
         String getDeviceInfoTopic = "mqtt/getDeviceInfoTestPiaomz";
         int qos = 0;
+
+
         MQSubscriber subscriber = new MQSubscriber(broker,username,password,clientid,subscribeTopic,qos);
         subscriber.setCallback(new MQSubscriberCallbackInterface() {
             @Override
@@ -24,8 +26,6 @@ public class MQSubscriberTest {
             }
         });
         subscriber.startListening();
-        //System.out.println("1111");
-        //subscriber.getDeviceInfo();
 
         MQSubscriber subscriber2 = new MQSubscriber(broker,username,password,clientid2,getDeviceInfoTopic,qos);
         subscriber2.setCallback(new MQSubscriberCallbackInterface() {
